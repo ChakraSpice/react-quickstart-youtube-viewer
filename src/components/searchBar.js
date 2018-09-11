@@ -12,13 +12,19 @@ class SearchBar extends Component {
     // On changed state - component rerenders, also components children rerender.
     render() {
         return (
-            <div>
+            <div className="search-bar">
                 <input
-                    value = {this.state.term} // Now it's controlled component - only changes when the state changes.
-                    onChange={event=> this.setState({ term: event.target.value })}/>
-                Value of input: {this.state.term}
+                    //value = {this.state.term} // Now it's controlled component - only changes when the state changes.
+                    onKeyPress={event => this.onKeyPress(event)}/>
             </div>
     );
+    }
+
+    onKeyPress(event) {
+        if (event.key === 'Enter') {
+            this.setState({term: event.target.value});
+            this.props.onSearchTermChange(event.target.value);
+        }
     }
 };
 
